@@ -90,5 +90,5 @@ export function parseJSON(text) {
     try { return JSON.parse(fixedNl); } catch {}
   }
 
-  throw new Error(`Gagal parse JSON dari response AI: ${clean.slice(0, 100)}`);
+  throw new Error(`Gagal parse JSON dari response AI:\n${clean.slice(0, 500)}`);
 }
