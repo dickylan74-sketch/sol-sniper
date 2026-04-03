@@ -1,0 +1,19 @@
+{
+  "name": "sol-sniper",
+  "version": "1.0.0",
+  "description": "Autonomous Solana new token sniper — Pump.fun → Raydium/PumpSwap, powered by MiniMax AI + Telegram",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "DRY_RUN=true node index.js",
+    "setup": "node setup.js"
+  },
+  "dependencies": {
+    "@solana/web3.js": "^1.98.0",
+    "node-telegram-bot-api": "^0.66.0",
+    "node-fetch": "^3.3.2",
+    "bs58": "^6.0.0",
+    "dotenv": "^16.4.5"
+  }
+}
