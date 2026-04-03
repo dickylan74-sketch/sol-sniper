@@ -52,10 +52,12 @@ Slot tersisa: ${CONFIG.maxOpenPositions - openCount}
 KANDIDAT TOKEN BARU (sudah graduate dari pump.fun):
 ${tokenList}
 
-LESSON DARI TRADE SEBELUMNYA:
+LESSON DARI TRADE SEBELUMNYA (WAJIB dijadikan acuan keputusan):
 ${lessons}
 
-Analisis setiap token, pilih maksimal ${Math.min(2, CONFIG.maxOpenPositions - openCount)} terbaik.
+Analisis setiap token dengan mempertimbangkan lesson di atas.
+Sebutkan lesson mana yang relevan dengan keputusanmu.
+Pilih maksimal ${Math.min(2, CONFIG.maxOpenPositions - openCount)} terbaik.
 Kalau tidak ada yang layak, jangan beli.
 
 Faktor penilaian:
@@ -162,10 +164,10 @@ CONFIG:
 - Stop loss: -${CONFIG.stopLossPct}%
 - Max hold: ${CONFIG.maxHoldMinutes} menit
 
-LESSON SEBELUMNYA:
+LESSON SEBELUMNYA (gunakan untuk menentukan kapan harus cut early atau hold lebih lama):
 ${formatLessonsForPrompt()}
 
-Evaluasi setiap posisi, HOLD atau SELL?
+Evaluasi setiap posisi, HOLD atau SELL? Referensikan lesson yang relevan di reason.
 
 Balas HANYA JSON valid tanpa markdown:
 {

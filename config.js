@@ -34,5 +34,5 @@ export const CONFIG = {
 
   // ── LESSONS ──────────────────────────────────────────────────────────
   lessonsFile: "./lessons.json",
-  maxLessonsInContext: 10,      // berapa lesson yang dimasukkan ke context AI
+  maxLessonsInContext: 30,      // berapa lesson yang dimasukkan ke context AI
 };

@@ -59,12 +59,15 @@ KONDISI MARKET SAAT ENTRY:
 LESSON SEBELUMNYA (jangan ulangi hal yang sama):
 ${formatLessonsForPrompt()}
 
-Buat lesson dalam Bahasa Indonesia. Balas HANYA dengan JSON valid tanpa markdown:
+Buat lesson dalam Bahasa Indonesia. Analisis MENDALAM — jangan generik.
+Balas HANYA dengan JSON valid tanpa markdown:
 {
-  "analysis": "<2-3 kalimat: kenapa trade ini profit/loss, faktor utama apa>",
-  "lesson": "<1 kalimat actionable yang bisa langsung diterapkan>",
-  "nextTime": "<1 kalimat: apa yang harus dilakukan berbeda di setup serupa>",
-  "redFlag": "<warning sign yang harusnya terdeteksi sebelum entry, atau null jika tidak ada>",
+  "analysis": "<3-4 kalimat spesifik: angka mana yang jadi sinyal utama, kenapa profit/loss, apa yang terjadi di market>",
+  "lesson": "<1 kalimat rule spesifik dengan angka threshold yang bisa langsung diterapkan>",
+  "nextTime": "<1 kalimat konkret: kondisi X → action Y>",
+  "redFlag": "<warning sign spesifik dengan angka yang harusnya terdeteksi, atau null>",
+  "entryScore": <0-100, seberapa bagus setup entry ini sebenarnya>,
+  "exitScore": <0-100, seberapa optimal timing exit>,
   "tags": ["<tag1>", "<tag2>", "<tag3>"],
   "confidence": <0-100>,
   "category": "entry_timing" | "exit_timing" | "token_selection" | "risk_management" | "position_size"
