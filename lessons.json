@@ -1,1 +1,46 @@
-[]
+[
+  {
+    "id": 1775215267360,
+    "timestamp": "2026-04-03T11:21:07.360Z",
+    "token": "SOLROCKET",
+    "mint": "4QhsE7XL",
+    "result": "LOSS",
+    "pnlPct": "-17.1",
+    "holdMinutes": 5,
+    "exitReason": "STOP_LOSS",
+    "analysis": "Trade loss karena entry dilakukan saat momentum sudah +236% dari titik awal pump - ini bukan early entry melainkan chase the pump. Likuiditas $25k terlalu kecil untuk volume $176k, sehingga slippage tinggi dan volatilitas ekstrem. AI signal 'early entry' misleading karena entry sudah setelah kenaikan besar, bukan di awal trend.",
+    "lesson": "Selalu cek performa harga sebelum entry - jika momentum sudah +100%+ sejak launch, tunggu pullback atau skip karena risiko reversal tinggi.",
+    "nextTime": "Bandingkan entry price dengan harga launch/initial pump - masuk hanya jika kenaikan <50% dari titik awal, dan gunakan limit order bukan market order saat likuiditas rendah.",
+    "redFlag": "Momentum +236% sebelum entry - ini adalah late entry signal, bukan early entry meskipun AI labelnya young age. Selalu validasi apakah harga sudah naik signifikan sebelum meng-klik buy.",
+    "tags": [
+      "late_entry",
+      "momentum_chasing",
+      "low_liquidity",
+      "pump_over"
+    ],
+    "confidence": 85,
+    "category": "entry_timing"
+  },
+  {
+    "id": 1775215266379,
+    "timestamp": "2026-04-03T11:21:06.379Z",
+    "token": "Nana",
+    "mint": "2NqfENSM",
+    "result": "PROFIT",
+    "pnlPct": "-17.4",
+    "holdMinutes": 5,
+    "exitReason": "STOP_LOSS",
+    "analysis": "Trade ini rugi karena entry dilakukan saat token sedang koreksi -13% dari titik tertinggi, dan koreksi tersebut ternyata berlanjut sampai -17.4% sebelum support pecah. Likuiditas $12.7k masih terlalu kecil untuk absorbsi selling pressure saat sentiment berubah bearish setelah entry.",
+    "lesson": "Jangan beli saat token sudah turun double digit karena momentum biasanya masih berlanjut, terutama dengan liquidity terbatas.",
+    "nextTime": "Tunggu konfirmasi reversal (Higher Low + volume naik) sebelum entry, bukan chase pullback yang belum selesai.",
+    "redFlag": "AI signal confidence 78% terlalu rendah untuk posisi initial - seharusnya menunggu minimal 85% sebelum entry dengan stop loss ketat.",
+    "tags": [
+      "entry_timing",
+      "dip_catching",
+      "low_confidence_signal",
+      "liquidity_risk"
+    ],
+    "confidence": 82,
+    "category": "entry_timing"
+  }
+]

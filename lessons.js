@@ -36,7 +36,7 @@ export async function generateLesson(trade) {
     aiSignal, aiConfidence, exitReason, graduated,
   } = trade;
 
-  const result = pnlSOL >= 0 ? "PROFIT" : "LOSS";
+  const result = (pnlPct ?? pnlSOL) >= 0 ? "PROFIT" : "LOSS";
   log.ai(`Generating lesson untuk ${symbol} (${result} ${pnlPct?.toFixed(1)}%)...`);
 
   const prompt = `Kamu adalah trading coach profesional yang menganalisis trade token baru di Solana.

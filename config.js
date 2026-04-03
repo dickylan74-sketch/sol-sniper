@@ -4,7 +4,7 @@
 export const CONFIG = {
   // ── AGENT INTERVALS ─────────────────────────────────────────────────
   scanIntervalMin: 15,         // seberapa sering scan coin baru (menit)
-  monitorIntervalMin: 3,       // seberapa sering monitor posisi open (menit)
+  monitorIntervalMin: 1,       // seberapa sering monitor posisi open (menit)
   healthCheckIntervalMin: 30,  // laporan kesehatan portfolio (menit)
 
   // ── FILTER COIN BARU ─────────────────────────────────────────────────
@@ -23,8 +23,8 @@ export const CONFIG = {
   slippageBps: 300,            // slippage tolerance (300 = 3%)
 
   // ── EXIT STRATEGY ────────────────────────────────────────────────────
-  takeProfitPct: 50,           // take profit di +50%
-  stopLossPct: 20,             // stop loss di -20%
+  takeProfitPct: 15,           // take profit di +15%
+  stopLossPct: 15,             // stop loss di -15%
   trailingStopPct: 15,         // trailing stop (aktif setelah TP pertama)
   maxHoldMinutes: 60,          // force close kalau >60 menit
 

@@ -84,7 +84,7 @@ Balas HANYA JSON valid tanpa markdown:
   try {
     const res = await callMiniMax({
       messages: [{ role: "user", content: prompt }],
-      max_tokens: 1000,
+      max_tokens: 3000,
     });
 
     const text = res.content.find(b => b.type === "text")?.text ?? "{}";

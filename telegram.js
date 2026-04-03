@@ -20,7 +20,12 @@ export function initTelegram() {
   }
 
   bot = new TelegramBot(token, { polling: true });
-  log.tg("Telegram bot aktif, menunggu pesan pertama...");
+  if (process.env.TELEGRAM_CHAT_ID) {
+    chatId = parseInt(process.env.TELEGRAM_CHAT_ID);
+    log.tg(`Chat ID dari .env: ${chatId}`);
+  } else {
+    log.tg("Telegram bot aktif, menunggu pesan pertama...");
+  }
 
   bot.on("message", async (msg) => {
     if (!chatId) {
@@ -82,7 +87,11 @@ export async function notify(message) {
       parse_mode: "Markdown",
       disable_web_page_preview: true,
     });
-  } catch (e) { log.warn("Telegram send gagal:", e.message); }
+  } catch {
+    try {
+      await bot.sendMessage(chatId, message, { disable_web_page_preview: true });
+    } catch (e) { log.warn("Telegram send gagal:", e.message); }
+  }
 }
 
 async function safeReply(msg) {
