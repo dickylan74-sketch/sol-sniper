@@ -13,7 +13,7 @@ export const CONFIG = {
   maxLiquidityUSD: 500000,     // maximum (hindari whale trap)
   minVolumeUSD: 500,          // minimum volume 1 jam terakhir ($)
   minHolders: 50,              // minimum jumlah holder
-  maxAgeMinutes: 30,           // maksimal umur token sejak graduate (menit)
+  maxAgeMinutes: 720,          // maksimal umur token sejak graduate (menit)
   minOrganicScore: 40,         // 0-100, filter bot activity
   requireGraduated: true,      // harus sudah graduate dari pump.fun
 
