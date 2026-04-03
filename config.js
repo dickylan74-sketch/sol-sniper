@@ -3,7 +3,7 @@
 
 export const CONFIG = {
   // ── AGENT INTERVALS ─────────────────────────────────────────────────
-  scanIntervalMin: 15,         // seberapa sering scan coin baru (menit)
+  scanIntervalMin: 60,         // seberapa sering scan coin baru (menit)
   monitorIntervalMin: 1,       // seberapa sering monitor posisi open (menit)
   healthCheckIntervalMin: 30,  // laporan kesehatan portfolio (menit)
 
