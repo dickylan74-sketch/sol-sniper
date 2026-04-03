@@ -6,25 +6,24 @@ import { state } from "./state.js";
 
 const DEXSCREENER_BASE = "https://api.dexscreener.com";
 
-// ── fetch recently graduated tokens via DexScreener (beberapa keyword) ──
+// ── fetch token baru dari DexScreener token profiles ─────────────────
 async function fetchGraduatedTokens() {
-  const keywords = ["pump", "sol", "pepe", "inu", "cat"];
   try {
-    const results = await Promise.all(keywords.map(async kw => {
-      const res = await fetch(
-        `${DEXSCREENER_BASE}/latest/dex/search?q=${kw}`,
-        { timeout: 10000 }
-      );
-      if (!res.ok) return [];
-      const data = await res.json();
-      return (data.pairs ?? [])
-        .filter(p => p.chainId === "solana" && (p.dexId === "pump-amm" || p.dexId === "raydium"))
-        .sort((a, b) => (b.pairCreatedAt ?? 0) - (a.pairCreatedAt ?? 0))
-        .slice(0, 30);
-    }));
-    return results.flat();
+    const res = await fetch(
+      `${DEXSCREENER_BASE}/token-profiles/latest/v1`,
+      { timeout: 10000 }
+    );
+    if (!res.ok) return [];
+    const data = await res.json();
+    const mints = (Array.isArray(data) ? data : [])
+      .filter(t => t.chainId === "solana")
+      .map(t => t.tokenAddress)
+      .filter(Boolean)
+      .slice(0, 50);
+    if (!mints.length) return [];
+    return await fetchDexScreener(mints);
   } catch (e) {
-    log.warn("DexScreener graduated gagal:", e.message);
+    log.warn("DexScreener token-profiles gagal:", e.message);
     return [];
   }
 }
