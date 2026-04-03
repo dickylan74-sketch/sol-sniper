@@ -6,21 +6,23 @@ import { state } from "./state.js";
 
 const DEXSCREENER_BASE = "https://api.dexscreener.com";
 
-// ── fetch recently graduated tokens via DexScreener (pump-amm pairs) ──
+// ── fetch recently graduated tokens via DexScreener (beberapa keyword) ──
 async function fetchGraduatedTokens() {
+  const keywords = ["pump", "sol", "pepe", "inu", "cat"];
   try {
-    const res = await fetch(
-      `${DEXSCREENER_BASE}/latest/dex/search?q=pump+sol`,
-      { timeout: 10000 }
-    );
-    if (!res.ok) return [];
-    const data = await res.json();
-    return (data.pairs ?? [])
-      .filter(p => p.chainId === "solana" && (p.dexId === "pump-amm" || p.dexId === "raydium"))
-      .sort((a, b) => (b.pairCreatedAt ?? 0) - (a.pairCreatedAt ?? 0))
-      .slice(0, 50)
-      .map(p => ({ mint: p.baseToken?.address }))
-      .filter(t => t.mint);
+    const results = await Promise.all(keywords.map(async kw => {
+      const res = await fetch(
+        `${DEXSCREENER_BASE}/latest/dex/search?q=${kw}`,
+        { timeout: 10000 }
+      );
+      if (!res.ok) return [];
+      const data = await res.json();
+      return (data.pairs ?? [])
+        .filter(p => p.chainId === "solana" && (p.dexId === "pump-amm" || p.dexId === "raydium"))
+        .sort((a, b) => (b.pairCreatedAt ?? 0) - (a.pairCreatedAt ?? 0))
+        .slice(0, 30);
+    }));
+    return results.flat();
   } catch (e) {
     log.warn("DexScreener graduated gagal:", e.message);
     return [];
@@ -176,20 +178,8 @@ export async function scanNewTokens() {
     fetchNewTokensDexScreener(),
   ]);
 
-  // extract mints dari pump.fun graduates
-  const gradMints = graduated
-    .map(t => t.mint)
-    .filter(Boolean)
-    .slice(0, 30);
-
-  // fetch detail dari DexScreener untuk grad tokens
-  let gradPairs = [];
-  if (gradMints.length) {
-    gradPairs = await fetchDexScreener(gradMints);
-  }
-
   // gabungkan, deduplicate by mint
-  const allPairs = [...gradPairs, ...dexPairs];
+  const allPairs = [...graduated, ...dexPairs];
   const seen = new Set();
   const unique = allPairs.filter(p => {
     const mint = p.baseToken?.address;
