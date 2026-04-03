@@ -5,31 +5,24 @@ import { log } from "./logger.js";
 import { state } from "./state.js";
 
 const DEXSCREENER_BASE = "https://api.dexscreener.com";
-const MORALIS_GRAD_URL = "https://solana-gateway.moralis.io/token/mainnet/exchange/pumpfun/graduated";
 
-// ── fetch recently graduated tokens via Moralis ───────────────────────
+// ── fetch recently graduated tokens via DexScreener (pump-amm pairs) ──
 async function fetchGraduatedTokens() {
-  const apiKey = process.env.MORALIS_API_KEY;
-  if (!apiKey) {
-    log.warn("MORALIS_API_KEY tidak ada di .env");
-    return [];
-  }
   try {
-    const res = await fetch(`${MORALIS_GRAD_URL}?limit=50`, {
-      headers: {
-        "X-API-Key": apiKey,
-        Accept: "application/json",
-      },
-      timeout: 10000,
-    });
-    if (!res.ok) throw new Error(`Moralis API ${res.status}`);
+    const res = await fetch(
+      `${DEXSCREENER_BASE}/latest/dex/search?q=pump+sol`,
+      { timeout: 10000 }
+    );
+    if (!res.ok) return [];
     const data = await res.json();
-    // Moralis returns { result: [...] }
-    const list = Array.isArray(data) ? data : (data.result ?? []);
-    // normalize ke format {mint} yang dipakai scanner
-    return list.map(t => ({ mint: t.mint ?? t.tokenAddress ?? t.address })).filter(t => t.mint);
+    return (data.pairs ?? [])
+      .filter(p => p.chainId === "solana" && (p.dexId === "pump-amm" || p.dexId === "raydium"))
+      .sort((a, b) => (b.pairCreatedAt ?? 0) - (a.pairCreatedAt ?? 0))
+      .slice(0, 50)
+      .map(p => ({ mint: p.baseToken?.address }))
+      .filter(t => t.mint);
   } catch (e) {
-    log.warn("Moralis API gagal, fallback ke DexScreener:", e.message);
+    log.warn("DexScreener graduated gagal:", e.message);
     return [];
   }
 }
